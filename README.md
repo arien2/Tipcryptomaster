@@ -87,8 +87,8 @@
         .game-btn {
             margin: 10px;
         }
-        /* Styling for slot machine and blackjack game */
-        .slot-container, .blackjack-container {
+        /* Slot and Redeem Box */
+        .slot-container, .redeem-container {
             margin-top: 20px;
         }
         .slot-item {
@@ -101,8 +101,22 @@
             color: #fff;
             font-size: 18px;
         }
-        #blackjack-board {
-            margin-top: 20px;
+        .redeem-box {
+            display: inline-block;
+            padding: 10px;
+            margin: 5px;
+            background-color: #f39c12;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .redeem-box:hover {
+            background-color: #e67e22;
+        }
+        #slot-result {
+            margin-top: 10px;
+            font-size: 20px;
         }
     </style>
 </head>
@@ -120,7 +134,7 @@
     <p class="crypto-address" id="eth-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
     <button class="copy-btn" onclick="copyAddress('eth-address')">Copy</button>
     
-    <!-- Add other crypto addresses as needed -->
+    <!-- Other crypto addresses can be added here -->
     
     <div class="goal">
         Current Donations: $0 / $10,000
@@ -142,19 +156,25 @@
         <button class="button" onclick="closeFeedbackForm()">Cancel</button>
     </div>
 
+    <!-- Redeem Coins Section -->
+    <div class="redeem-container">
+        <h3>Redeem Coins</h3>
+        <p>U can only get coins by donating and after donating pls make sure to contact idk_baj (in discord) in order to verify that U donated and get Ur coins!</p>
+        <button class="redeem-box" onclick="redeemCoins(100)">Redeem 100 Coins</button>
+        <button class="redeem-box" onclick="redeemCoins(500)">Redeem 500 Coins</button>
+        <button class="redeem-box" onclick="redeemCoins(1000)">Redeem 1000 Coins</button>
+        <button class="redeem-box" onclick="redeemCoins(2000)">Redeem 2000 Coins</button>
+        <button class="redeem-box" onclick="redeemCoins(5000)">Redeem 5000 Coins</button>
+        <button class="redeem-box" onclick="redeemCoins(10000)">Redeem 10000 Coins</button>
+        <button class="redeem-box" onclick="redeemCoins(15000)">Redeem 15000 Coins</button>
+        <button class="redeem-box" onclick="redeemCoins(20000)">Redeem 20000 Coins</button>
+    </div>
+
     <!-- Slot Game -->
     <div class="slot-container" id="slot-container">
         <h3>Slot Game (1000 coins required)</h3>
         <button class="button game-btn" onclick="playSlotGame()">Spin</button>
         <div id="slot-result"></div>
-    </div>
-
-    <!-- Blackjack Game -->
-    <div class="blackjack-container" id="blackjack-container">
-        <h3>Blackjack Game</h3>
-        <button class="button game-btn" onclick="hitCard()">Hit</button>
-        <button class="button game-btn" onclick="stand()">Stand</button>
-        <div id="blackjack-board"></div>
     </div>
 
     <footer>
@@ -165,7 +185,7 @@
         let coins = 0;
         let adminCode = "Ariengambleswhilebeingabillionaire";
         let isAdmin = false;
-        
+
         function copyAddress(addressId) {
             const addressText = document.getElementById(addressId).innerText;
             navigator.clipboard.writeText(addressText).then(() => {
@@ -203,27 +223,4 @@
             }
         }
 
-        function playSlotGame() {
-            if (coins < 1000) {
-                alert("You need at least 1000 coins to play the slot game.");
-                return;
-            }
-            coins -= 1000; // Deduct coins for playing
-            document.getElementById("coin-balance").innerText = `Your Coin Balance: ${coins}`;
-            const result = ["🍒", "🍇", "🍉", "🍊", "🍓"];
-            const randomResult = result[Math.floor(Math.random() * result.length)];
-            document.getElementById("slot-result").innerText = `You got: ${randomResult}`;
-        }
-
-        function hitCard() {
-            alert("You hit a card!");
-            // Blackjack logic here
-        }
-
-        function stand() {
-            alert("You stood!");
-            // Blackjack logic here
-        }
-    </script>
-</body>
-</html>
+        function
