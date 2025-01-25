@@ -8,17 +8,13 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 20px;
-            background-color: #000;
+            background-color: #1c1c1c;
             color: #fff;
+            margin: 0;
+            padding: 0;
         }
-        h1 {
-            font-size: 2.5em;
-            color: #fff;
-        }
-        p {
-            font-size: 1.2em;
-            margin: 10px 0;
+        h1, h3 {
+            color: #f1c40f;
         }
         .crypto-address {
             font-weight: bold;
@@ -27,10 +23,13 @@
             border-radius: 5px;
             display: inline-block;
             margin-bottom: 20px;
-            font-size: 12px;
-            color: red;
-            word-wrap: break-word;
-            max-width: 400px;
+            font-size: 14px;
+            color: #f39c12;
+        }
+        #coin-balance {
+            font-size: 20px;
+            color: #28a745;
+            margin: 10px 0;
         }
         .goal {
             margin: 20px auto;
@@ -43,146 +42,119 @@
             font-size: 0.9em;
             color: #666;
         }
-        .copy-btn {
-            padding: 5px 10px;
-            background-color: #28a745;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            color: white;
-        }
-        .copy-btn:hover {
-            background-color: #218838;
-        }
-
-        /* Game Styles */
-        .game-container {
-            margin-top: 50px;
+        .feedback-container {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
             padding: 20px;
+            background-color: #fff;
+            color: #000;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
         }
-        .game-board {
-            background-color: #eee;
-            width: 300px;
-            height: 400px;
-            margin: 0 auto;
+        .feedback-container input, .feedback-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
             border-radius: 5px;
+            cursor: pointer;
         }
-        .slot-container {
-            margin-top: 50px;
+        .button:hover {
+            background-color: #2980b9;
         }
-        .slot-machine {
-            display: flex;
-            justify-content: center;
+        #feedback-btn {
+            margin-top: 30px;
+        }
+        .copy-btn {
+            background-color: #f39c12;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .game-container {
+            margin: 20px;
+        }
+        .game-btn {
+            margin: 10px;
+        }
+        /* Styling for slot machine and blackjack game */
+        .slot-container, .blackjack-container {
             margin-top: 20px;
         }
         .slot-item {
-            font-size: 40px;
-            padding: 20px;
-            background-color: #28a745;
-            color: white;
-            margin: 0 10px;
-            border-radius: 5px;
-        }
-        .slot-button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .slot-button:hover {
-            background-color: #218838;
-        }
-        .coin-balance {
-            font-size: 1.5em;
-            color: #f39c12;
-            font-weight: bold;
-            margin: 20px;
-        }
-        #game-board {
-            background-color: #eee;
-            width: 300px;
-            height: 400px;
-            margin: 0 auto;
-            border-radius: 5px;
-        }
-        /* Style for feedback section */
-        #feedback-popup {
-            margin-top: 20px;
-            background-color: #eee;
-            padding: 20px;
-            width: 300px;
-            margin: 0 auto;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            display: inline-block;
+            background-color: #f1c40f;
             border-radius: 10px;
+            color: #fff;
+            font-size: 18px;
         }
-        #feedback-popup textarea {
-            width: 100%;
-            height: 100px;
+        #blackjack-board {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <h1>Welcome to Tip CryptoGuy</h1>
     <p>Your tips help me achieve my goals!</p>
+    
+    <div id="coin-balance">Your Coin Balance: 0</div>
 
-    <!-- Admin Verification Section -->
-    <h3>Admin Verification</h3>
-    <input type="password" id="admin-password" placeholder="Enter Admin Password">
-    <button onclick="verifyAdmin()">Submit</button>
-    <div id="admin-status"></div>
-
-    <!-- Coin Balance -->
-    <div class="coin-balance">
-        <span id="coin-balance">Coin Balance: 0</span>
-    </div>
-
-    <!-- Crypto Addresses -->
     <h3>Tip me with Bitcoin (BTC):</h3>
-    <p class="crypto-address" id="btc-address">bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48 <button class="copy-btn" onclick="copyToClipboard('btc-address')">Copy</button></p>
+    <p class="crypto-address" id="btc-address">bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48</p>
+    <button class="copy-btn" onclick="copyAddress('btc-address')">Copy</button>
     
     <h3>Tip me with Ethereum (ETH):</h3>
-    <p class="crypto-address" id="eth-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63 <button class="copy-btn" onclick="copyToClipboard('eth-address')">Copy</button></p>
-
-    <h3>Tip me with Dogecoin (DOGE):</h3>
-    <p class="crypto-address" id="doge-address">D9W4z33sejaWfrhTYL8DiD5GGUn7gUjT3fP <button class="copy-btn" onclick="copyToClipboard('doge-address')">Copy</button></p>
-
-    <h3>Tip me with Litecoin (LTC):</h3>
-    <p class="crypto-address" id="ltc-address">LcFf4y7wx8v9KjiMdx74y5JTK6Lgti3AHXw <button class="copy-btn" onclick="copyToClipboard('ltc-address')">Copy</button></p>
+    <p class="crypto-address" id="eth-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+    <button class="copy-btn" onclick="copyAddress('eth-address')">Copy</button>
     
-    <h3>Tip me with USDT (Tether):</h3>
-    <p class="crypto-address" id="usdt-address">TX1v9m3s9af8G0jzA4sYdG91X2AwXt0kzp <button class="copy-btn" onclick="copyToClipboard('usdt-address')">Copy</button></p>
+    <!-- Add other crypto addresses as needed -->
+    
+    <div class="goal">
+        Current Donations: $0 / $10,000
+    </div>
 
-    <h3>Tip me with USDC:</h3>
-    <p class="crypto-address" id="usdc-address">0x5F97A0FE50eB64D50C7B7c106Ce9b95312A7dD8A <button class="copy-btn" onclick="copyToClipboard('usdc-address')">Copy</button></p>
+    <button id="feedback-btn" class="button" onclick="showFeedbackForm()">Give Feedback</button>
 
-    <h3>Tip me with TrumpCoin (TRUMP):</h3>
-    <p class="crypto-address" id="trump-address">TRUMPTOKEN1234567890ABCDEFGH <button class="copy-btn" onclick="copyToClipboard('trump-address')">Copy</button></p>
+    <!-- Admin verification input -->
+    <div id="admin-verification">
+        <input type="text" id="admin-code" placeholder="Enter Admin Code">
+        <button class="button" onclick="verifyAdmin()">Verify</button>
+    </div>
 
-    <!-- Feedback Section -->
-    <button onclick="openFeedback()">Give Feedback</button>
-    <div id="feedback-popup" class="game-container" style="display:none;">
+    <!-- Feedback Form -->
+    <div class="feedback-container" id="feedback-container">
         <h3>Feedback</h3>
-        <textarea id="feedback-text" placeholder="Enter your feedback..."></textarea><br>
-        <button class="copy-btn" onclick="submitFeedback()">Submit</button>
+        <textarea id="feedback-text" placeholder="Write your feedback..."></textarea>
+        <button class="button" onclick="sendFeedback()">Submit Feedback</button>
+        <button class="button" onclick="closeFeedbackForm()">Cancel</button>
     </div>
 
-    <!-- Slot Game Section -->
-    <div class="slot-container">
-        <h3>Slot Game (Requires 1000 Coins)</h3>
-        <div id="slot-machine" class="slot-machine">
-            <div class="slot-item" id="slot1">🍀</div>
-            <div class="slot-item" id="slot2">🍀</div>
-            <div class="slot-item" id="slot3">🍀</div>
-        </div>
-        <button class="slot-button" onclick="playSlotGame()">Spin Slot</button>
+    <!-- Slot Game -->
+    <div class="slot-container" id="slot-container">
+        <h3>Slot Game (1000 coins required)</h3>
+        <button class="button game-btn" onclick="playSlotGame()">Spin</button>
+        <div id="slot-result"></div>
     </div>
 
-    <!-- Game Section -->
-    <div class="game-container" id="game-container">
-        <h3>Simple Game: Click to Play</h3>
-        <button onclick="startSimpleGame()">Start Simple Game</button>
-        <div id="game-board"></div>
+    <!-- Blackjack Game -->
+    <div class="blackjack-container" id="blackjack-container">
+        <h3>Blackjack Game</h3>
+        <button class="button game-btn" onclick="hitCard()">Hit</button>
+        <button class="button game-btn" onclick="stand()">Stand</button>
+        <div id="blackjack-board"></div>
     </div>
 
     <footer>
@@ -190,52 +162,68 @@
     </footer>
 
     <script>
+        let coins = 0;
+        let adminCode = "Ariengambleswhilebeingabillionaire";
         let isAdmin = false;
-        let coinBalance = 0; // Default balance for non-admin users
-        let highScore = 0;
-
-        // Function to copy text to clipboard
-        function copyToClipboard(id) {
-            const text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text);
+        
+        function copyAddress(addressId) {
+            const addressText = document.getElementById(addressId).innerText;
+            navigator.clipboard.writeText(addressText).then(() => {
+                alert("Address copied!");
+            });
         }
 
-        // Admin verification process
+        function showFeedbackForm() {
+            document.getElementById("feedback-container").style.display = "block";
+        }
+
+        function closeFeedbackForm() {
+            document.getElementById("feedback-container").style.display = "none";
+        }
+
+        function sendFeedback() {
+            const feedback = document.getElementById("feedback-text").value;
+            if (feedback.trim() === "") {
+                alert("Please write some feedback.");
+                return;
+            }
+            alert("Successfully sent to the owner!");
+            document.getElementById("feedback-container").style.display = "none";
+        }
+
         function verifyAdmin() {
-            const password = document.getElementById('admin-password').value;
-            const validPassword = "Ariengambleswhilebeingabillionaire";
-            if (password === validPassword) {
+            const enteredCode = document.getElementById("admin-code").value;
+            if (enteredCode === adminCode) {
                 isAdmin = true;
-                coinBalance = 999999999;  // Admin coins
-                document.getElementById('admin-status').innerText = "Admin verified! Coin balance is now set to 999999999.";
-                document.getElementById('admin-status').style.color = "green";
-                document.getElementById('coin-balance').innerText = `Coin Balance: ${coinBalance}`;
+                coins = 999999; // Admin gets infinite coins
+                document.getElementById("coin-balance").innerText = `Your Coin Balance: ${coins}`;
+                alert("Verification successful! Admin privileges granted.");
             } else {
-                document.getElementById('admin-status').innerText = "Invalid password. You are not an admin.";
-                document.getElementById('admin-status').style.color = "red";
+                alert("INVALID! The admin code is incorrect.");
             }
         }
 
-        // Feedback Section
-        function openFeedback() {
-            document.getElementById('feedback-popup').style.display = 'block';
-        }
-
-        function submitFeedback() {
-            const feedback = document.getElementById('feedback-text').value;
-            alert(`Feedback submitted: ${feedback}`);
-            document.getElementById('feedback-text').value = ''; // Clear feedback textarea
-            document.getElementById('feedback-popup').style.display = 'none'; // Close feedback form
-        }
-
-        // Slot Game Section
         function playSlotGame() {
-            if (coinBalance >= 1000) {
-                coinBalance -= 1000;
-                document.getElementById('coin-balance').innerText = `Coin Balance: ${coinBalance}`;
-                const slots = ['🍒', '🍋', '🍀', '🍇', '🍉'];
-                const result1 = slots[Math.floor(Math.random() * slots.length)];
-                const result2 = slots[Math.floor(Math.random() * slots.length)];
-                const result3 = slots[Math.floor(Math.random() * slots.length)];
-                document.getElementById('slot1').innerText = result1;
-                document.getElementById('slot2').inner
+            if (coins < 1000) {
+                alert("You need at least 1000 coins to play the slot game.");
+                return;
+            }
+            coins -= 1000; // Deduct coins for playing
+            document.getElementById("coin-balance").innerText = `Your Coin Balance: ${coins}`;
+            const result = ["🍒", "🍇", "🍉", "🍊", "🍓"];
+            const randomResult = result[Math.floor(Math.random() * result.length)];
+            document.getElementById("slot-result").innerText = `You got: ${randomResult}`;
+        }
+
+        function hitCard() {
+            alert("You hit a card!");
+            // Blackjack logic here
+        }
+
+        function stand() {
+            alert("You stood!");
+            // Blackjack logic here
+        }
+    </script>
+</body>
+</html>
