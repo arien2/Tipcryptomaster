@@ -25,6 +25,26 @@
             display: inline-block;
             margin-bottom: 20px;
             color: yellow;
+            font-size: 0.8em; /* Reduced font size to fit addresses */
+            max-width: 300px; /* Ensure addresses fit */
+            word-wrap: break-word;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .copy-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .copy-btn:hover {
+            background-color: #45a049;
         }
 
         .goal {
@@ -110,6 +130,11 @@
             font-size: 1.2em;
             margin-top: 20px;
         }
+
+        .game {
+            display: block;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -118,37 +143,59 @@
     <p>Your tips help me achieve my goals!</p>
 
     <h3>Tip me with Bitcoin (BTC):</h3>
-    <p class="crypto-address">bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48</p>
+    <p class="crypto-address" id="btc-address">bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48
+        <button class="copy-btn" onclick="copyToClipboard('btc-address')">Copy</button>
+    </p>
 
     <h3>Tip me with Ethereum (ETH):</h3>
-    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+    <p class="crypto-address" id="eth-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63
+        <button class="copy-btn" onclick="copyToClipboard('eth-address')">Copy</button>
+    </p>
 
     <h3>Tip me with XRP:</h3>
-    <p class="crypto-address">riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ</p>
+    <p class="crypto-address" id="xrp-address">riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ
+        <button class="copy-btn" onclick="copyToClipboard('xrp-address')">Copy</button>
+    </p>
 
     <h3>Tip me with Solana (SOL):</h3>
-    <p class="crypto-address">CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c</p>
+    <p class="crypto-address" id="sol-address">CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c
+        <button class="copy-btn" onclick="copyToClipboard('sol-address')">Copy</button>
+    </p>
 
     <h3>Tip me with Binance Coin (BNB):</h3>
-    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+    <p class="crypto-address" id="bnb-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63
+        <button class="copy-btn" onclick="copyToClipboard('bnb-address')">Copy</button>
+    </p>
 
     <h3>Tip me with Polygon (MATIC):</h3>
-    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+    <p class="crypto-address" id="matic-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63
+        <button class="copy-btn" onclick="copyToClipboard('matic-address')">Copy</button>
+    </p>
 
     <h3>Tip me with Litecoin (LTC):</h3>
-    <p class="crypto-address">Lfadmh9uxk9pawfaH9muBZ5vkVQhkrN1kc</p>
+    <p class="crypto-address" id="ltc-address">Lfadmh9uxk9pawfaH9muBZ5vkVQhkrN1kc
+        <button class="copy-btn" onclick="copyToClipboard('ltc-address')">Copy</button>
+    </p>
 
     <h3>Tip me with USDT (Ethereum Network):</h3>
-    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+    <p class="crypto-address" id="usdt-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63
+        <button class="copy-btn" onclick="copyToClipboard('usdt-address')">Copy</button>
+    </p>
 
     <h3>Tip me with USDC (Ethereum Network):</h3>
-    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+    <p class="crypto-address" id="usdc-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63
+        <button class="copy-btn" onclick="copyToClipboard('usdc-address')">Copy</button>
+    </p>
 
     <h3>Tip me with Cosmos (ATOM):</h3>
-    <p class="crypto-address">cosmos1sm3tzv4jmv8ac9zul9fry0ped0d3y8kxxufk2n</p>
+    <p class="crypto-address" id="atom-address">cosmos1sm3tzv4jmv8ac9zul9fry0ped0d3y8kxxufk2n
+        <button class="copy-btn" onclick="copyToClipboard('atom-address')">Copy</button>
+    </p>
 
     <h3>Tip me with Shiba Inu (Ethereum Network):</h3>
-    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+    <p class="crypto-address" id="shiba-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63
+        <button class="copy-btn" onclick="copyToClipboard('shiba-address')">Copy</button>
+    </p>
 
     <div class="goal">
         <div>Current Donations: $0 / $10,000</div>
@@ -159,6 +206,11 @@
 
     <div class="coin-balance">
         Coin Balance: 0
+    </div>
+
+    <div class="game" id="game">
+        <!-- Game content goes here -->
+        <button onclick="playGame()">Play Game (Requires 1000 Coins)</button>
     </div>
 
     <div class="feedback">
@@ -198,39 +250,20 @@
 
             if (verificationCode === "Letsgogamblingwhilebeingabillionaire") {
                 isAdmin = true;
-                coins = Infinity;
-                showNotification("Successfully Verified! Infinite coins granted.", "green");
-            } else {
-                showNotification("INVALID! Wrong code.", "red");
+                coins = Infinity;  // You can now manage the coins
             }
-
-            document.getElementById('popup').style.display = 'none';
         }
 
-        function showNotification(message, color) {
-            const notification = document.getElementById('notification');
-            notification.innerText = message;
-            notification.style.backgroundColor = color;
-            notification.style.display = 'block';
-            setTimeout(() => notification.style.display = 'none', 3000);
+        function copyToClipboard(id) {
+            const address = document.getElementById(id).textContent.trim();
+            navigator.clipboard.writeText(address)
+                .then(() => {
+                    alert("Address copied to clipboard!");
+                })
+                .catch(err => {
+                    alert("Failed to copy address: " + err);
+                });
         }
-
-        function updateDonationGoal(percentage) {
-            const progressBar = document.querySelector('.progress-bar-fill');
-            progressBar.style.width = percentage + '%';
-        }
-
-        // Simulate donation updates (for demo purposes)
-        setInterval(() => {
-            let randomDonation = Math.floor(Math.random() * 100);
-            let goalPercentage = randomDonation;
-            updateDonationGoal(goalPercentage);
-        }, 5000); // Update every 5 seconds for demonstration
-
-        // Show pop-up when page loads
-        window.onload = () => {
-            document.getElementById('popup').style.display = 'block';
-        };
     </script>
 </body>
 </html>
