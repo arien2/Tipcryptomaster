@@ -27,7 +27,7 @@
             border-radius: 5px;
             display: inline-block;
             margin-bottom: 20px;
-            font-size: 12px; /* Smaller font size */
+            font-size: 12px;
             color: red;
             word-wrap: break-word;
             max-width: 400px;
@@ -54,86 +54,17 @@
         .copy-btn:hover {
             background-color: #218838;
         }
-        .progress-bar {
-            width: 100%;
-            background-color: #ddd;
-            height: 30px;
-            margin-top: 20px;
-            border-radius: 5px;
-            position: relative;
-        }
-        .progress-fill {
-            height: 100%;
-            background-color: #28a745;
-            width: 0%;
-            border-radius: 5px;
-            position: absolute;
-        }
-        .invalid {
-            color: red;
-        }
-        .valid {
-            color: green;
-        }
-        .feedback-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #222;
-            color: white;
+        /* Game Styles */
+        .game-container {
+            margin-top: 50px;
             padding: 20px;
-            border-radius: 5px;
         }
-        .feedback-btn {
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .feedback-btn:hover {
-            background-color: #218838;
-        }
-
-        /* Slot Game Styles */
-        .slot-game {
-            margin-top: 50px;
-        }
-        .slot-reels {
-            display: flex;
-            justify-content: center;
-            margin: 10px;
-        }
-        .reel {
+        .game-board {
             background-color: #eee;
-            width: 80px;
-            height: 80px;
-            margin: 5px;
-            font-size: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 300px;
+            height: 400px;
+            margin: 0 auto;
             border-radius: 5px;
-        }
-        .spin-btn {
-            background-color: #28a745;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 20px;
-            margin-top: 20px;
-        }
-        .spin-btn:hover {
-            background-color: #218838;
-        }
-
-        /* Simple Game Styles */
-        .simple-game {
-            margin-top: 50px;
         }
         #game-board {
             background-color: #eee;
@@ -152,45 +83,40 @@
     <h1>Welcome to Tip CryptoGuy</h1>
     <p>Your tips help me achieve my goals!</p>
 
-    <!-- Verification Popup -->
-    <div id="verification-popup" style="display: none;">
-        <h2>Enter Admin Password</h2>
-        <input type="password" id="admin-password" placeholder="Enter password">
-        <button onclick="verifyAdmin()">Submit</button>
-    </div>
+    <!-- Admin Verification Section -->
+    <h3>Admin Verification</h3>
+    <input type="password" id="admin-password" placeholder="Enter Admin Password">
+    <button onclick="verifyAdmin()">Submit</button>
+    <div id="admin-status"></div>
 
     <h3>Tip me with Bitcoin (BTC):</h3>
     <p class="crypto-address" id="btc-address">bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48 <button class="copy-btn" onclick="copyToClipboard('btc-address')">Copy</button></p>
     
     <h3>Tip me with Ethereum (ETH):</h3>
     <p class="crypto-address" id="eth-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63 <button class="copy-btn" onclick="copyToClipboard('eth-address')">Copy</button></p>
+
+    <h3>Tip me with Dogecoin (DOGE):</h3>
+    <p class="crypto-address" id="doge-address">D9W4z33sejaWfrhTYL8DiD5GGUn7gUjT3fP <button class="copy-btn" onclick="copyToClipboard('doge-address')">Copy</button></p>
     
+    <h3>Tip me with Litecoin (LTC):</h3>
+    <p class="crypto-address" id="ltc-address">LcFf4y7wx8v9KjiMdx74y5JTK6Lgti3AHXw <button class="copy-btn" onclick="copyToClipboard('ltc-address')">Copy</button></p>
+    
+    <h3>Tip me with Bitcoin Cash (BCH):</h3>
+    <p class="crypto-address" id="bch-address">qzv5u7f76nxjw2d8cqr9p0s0g54c9l85y3gn9wuh59 <button class="copy-btn" onclick="copyToClipboard('bch-address')">Copy</button></p>
+
     <!-- Feedback Section -->
     <button onclick="openFeedback()">Give Feedback</button>
-    <div id="feedback-popup" class="feedback-popup">
+    <div id="feedback-popup" class="game-container" style="display:none;">
         <h3>Feedback</h3>
         <textarea id="feedback-text" placeholder="Enter your feedback..."></textarea><br>
-        <button class="feedback-btn" onclick="submitFeedback()">Submit</button>
+        <button class="copy-btn" onclick="submitFeedback()">Submit</button>
     </div>
 
-    <!-- Slot Game -->
-    <div class="slot-game" id="slot-game">
-        <h3>Slot Game</h3>
-        <div class="slot-reels">
-            <div class="reel" id="reel-1">🍒</div>
-            <div class="reel" id="reel-2">🍒</div>
-            <div class="reel" id="reel-3">🍒</div>
-        </div>
-        <button class="spin-btn" onclick="spinSlot()">Spin</button>
-    </div>
-
-    <!-- Flappy Bird Game -->
-    <div class="simple-game" id="simple-game">
-        <h3>Simple Game (Flappy Bird)</h3>
-        <div id="game-board">
-            <canvas id="gameCanvas" width="300" height="400"></canvas>
-        </div>
-        <h4>High Score: <span id="high-score">0</span></h4>
+    <!-- Game Section -->
+    <div class="game-container" id="game-container">
+        <h3>Simple Game: Click to Play</h3>
+        <button onclick="startGame()">Start Simple Game</button>
+        <div id="game-board"></div>
     </div>
 
     <footer>
@@ -208,106 +134,54 @@
             navigator.clipboard.writeText(text);
         }
 
-        // Verification process
+        // Admin verification process
         function verifyAdmin() {
             const password = document.getElementById('admin-password').value;
             const validPassword = "Ariengambleswhilebeingabillionaire";
             if (password === validPassword) {
                 isAdmin = true;
                 coinBalance = 999999999;  // Admin coins
-                alert("Admin verified! Coin balance is now set to 999999999.");
+                document.getElementById('admin-status').innerText = "Admin verified! Coin balance is now set to 999999999.";
+                document.getElementById('admin-status').style.color = "green";
             } else {
-                alert("Invalid password. You are not an admin.");
+                document.getElementById('admin-status').innerText = "Invalid password. You are not an admin.";
+                document.getElementById('admin-status').style.color = "red";
             }
-            document.getElementById('verification-popup').style.display = 'none';
         }
 
-        // Open feedback form
+        // Feedback Section
         function openFeedback() {
             document.getElementById('feedback-popup').style.display = 'block';
         }
 
-        // Submit fake feedback
         function submitFeedback() {
             const feedback = document.getElementById('feedback-text').value;
             alert("Feedback submitted: " + feedback);
             document.getElementById('feedback-popup').style.display = 'none';
         }
 
-        // Slot Game Spin Function
-        function spinSlot() {
-            const fruits = ["🍒", "🍋", "🍉", "🍊", "🍇"];
-            let reel1 = fruits[Math.floor(Math.random() * fruits.length)];
-            let reel2 = fruits[Math.floor(Math.random() * fruits.length)];
-            let reel3 = fruits[Math.floor(Math.random() * fruits.length)];
-
-            document.getElementById('reel-1').innerText = reel1;
-            document.getElementById('reel-2').innerText = reel2;
-            document.getElementById('reel-3').innerText = reel3;
-        }
-
-        // Flappy Bird Game Logic
-        let bird;
-        let pipes = [];
-        let gravity = 0.6;
-        let lift = -15;
-        let isFlapping = false;
-        let gameCanvas;
-        let ctx;
-
-        function setupGame() {
-            gameCanvas = document.getElementById('gameCanvas');
-            ctx = gameCanvas.getContext('2d');
-
-            bird = {
-                x: 50,
-                y: 150,
-                width: 20,
-                height: 20,
-                velocity: 0,
-            };
-
-            window.addEventListener('keydown', function (e) {
-                if (e.code === "Space") {
-                    isFlapping = true;
-                }
-            });
-
-            startGame();
-        }
-
+        // Simple Game
         function startGame() {
-            bird.y = 150;
-            bird.velocity = 0;
-            pipes = [];
-            highScore = Math.max(highScore, highScore);
-            document.getElementById('high-score').innerText = highScore;
-            gameLoop();
+            let score = 0;
+            let gameBoard = document.getElementById("game-board");
+            gameBoard.innerHTML = `<h4>Score: <span id="score">${score}</span></h4>`;
+
+            let interval = setInterval(() => {
+                score++;
+                document.getElementById("score").innerText = score;
+            }, 1000);
+
+            // Stop the game after 10 seconds
+            setTimeout(() => {
+                clearInterval(interval);
+                alert("Game Over! Final score: " + score);
+                if (score > highScore) {
+                    highScore = score;
+                    alert("New High Score: " + highScore);
+                }
+            }, 10000);
         }
 
-        function gameLoop() {
-            ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-
-            bird.velocity += gravity;
-            bird.y += bird.velocity;
-
-            if (bird.y > gameCanvas.height - bird.height) {
-                bird.y = gameCanvas.height - bird.height;
-                bird.velocity = 0;
-            }
-
-            if (isFlapping) {
-                bird.velocity = lift;
-                isFlapping = false;
-            }
-
-            ctx.fillStyle = "#ff0";
-            ctx.fillRect(bird.x, bird.y, bird.width, bird.height);
-
-            requestAnimationFrame(gameLoop);
-        }
-
-        setupGame();
     </script>
 </body>
 </html>
