@@ -152,47 +152,28 @@
     <h1>Welcome to Tip CryptoGuy</h1>
     <p>Your tips help me achieve my goals!</p>
 
+    <!-- Verification Popup -->
+    <div id="verification-popup" style="display: none;">
+        <h2>Enter Admin Password</h2>
+        <input type="password" id="admin-password" placeholder="Enter password">
+        <button onclick="verifyAdmin()">Submit</button>
+    </div>
+
     <h3>Tip me with Bitcoin (BTC):</h3>
     <p class="crypto-address" id="btc-address">bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48 <button class="copy-btn" onclick="copyToClipboard('btc-address')">Copy</button></p>
     
     <h3>Tip me with Ethereum (ETH):</h3>
     <p class="crypto-address" id="eth-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63 <button class="copy-btn" onclick="copyToClipboard('eth-address')">Copy</button></p>
     
-    <h3>Tip me with XRP:</h3>
-    <p class="crypto-address" id="xrp-address">riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ <button class="copy-btn" onclick="copyToClipboard('xrp-address')">Copy</button></p>
-    
-    <h3>Tip me with Solana (SOL):</h3>
-    <p class="crypto-address" id="sol-address">CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c <button class="copy-btn" onclick="copyToClipboard('sol-address')">Copy</button></p>
-    
-    <h3>Tip me with Binance Coin (BNB):</h3>
-    <p class="crypto-address" id="bnb-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63 <button class="copy-btn" onclick="copyToClipboard('bnb-address')">Copy</button></p>
-
-    <h3>Tip me with Polygon (MATIC):</h3>
-    <p class="crypto-address" id="matic-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63 <button class="copy-btn" onclick="copyToClipboard('matic-address')">Copy</button></p>
-
-    <h3>Tip me with Litecoin (LTC):</h3>
-    <p class="crypto-address" id="ltc-address">Lfadmh9uxk9pawfaH9muBZ5vkVQhkrN1kc <button class="copy-btn" onclick="copyToClipboard('ltc-address')">Copy</button></p>
-
-    <h3>Tip me with USDT (Ethereum Network):</h3>
-    <p class="crypto-address" id="usdt-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63 <button class="copy-btn" onclick="copyToClipboard('usdt-address')">Copy</button></p>
-
-    <h3>Tip me with USDC (Ethereum Network):</h3>
-    <p class="crypto-address" id="usdc-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63 <button class="copy-btn" onclick="copyToClipboard('usdc-address')">Copy</button></p>
-
-    <h3>Tip me with Cosmos (ATOM):</h3>
-    <p class="crypto-address" id="atom-address">cosmos1sm3tzv4jmv8ac9zul9fry0ped0d3y8kxxufk2n <button class="copy-btn" onclick="copyToClipboard('atom-address')">Copy</button></p>
-
-    <h3>Tip me with Shiba Inu (Ethereum Network):</h3>
-    <p class="crypto-address" id="shiba-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63 <button class="copy-btn" onclick="copyToClipboard('shiba-address')">Copy</button></p>
-
-    <div class="goal">
-        Current Donations: $0 / $10,000
+    <!-- Feedback Section -->
+    <button onclick="openFeedback()">Give Feedback</button>
+    <div id="feedback-popup" class="feedback-popup">
+        <h3>Feedback</h3>
+        <textarea id="feedback-text" placeholder="Enter your feedback..."></textarea><br>
+        <button class="feedback-btn" onclick="submitFeedback()">Submit</button>
     </div>
 
-    <div class="progress-bar">
-        <div class="progress-fill" id="donation-progress"></div>
-    </div>
-
+    <!-- Slot Game -->
     <div class="slot-game" id="slot-game">
         <h3>Slot Game</h3>
         <div class="slot-reels">
@@ -203,12 +184,12 @@
         <button class="spin-btn" onclick="spinSlot()">Spin</button>
     </div>
 
+    <!-- Flappy Bird Game -->
     <div class="simple-game" id="simple-game">
-        <h3>Simple Game (No Coin Required)</h3>
+        <h3>Simple Game (Flappy Bird)</h3>
         <div id="game-board">
             <canvas id="gameCanvas" width="300" height="400"></canvas>
         </div>
-        <button class="feedback-btn" onclick="startGame()">Start Game</button>
         <h4>High Score: <span id="high-score">0</span></h4>
     </div>
 
@@ -218,4 +199,115 @@
 
     <script>
         let isAdmin = false;
-        let coinBalance =
+        let coinBalance = 0; // Default balance for non-admin users
+        let highScore = 0;
+
+        // Function to copy text to clipboard
+        function copyToClipboard(id) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text);
+        }
+
+        // Verification process
+        function verifyAdmin() {
+            const password = document.getElementById('admin-password').value;
+            const validPassword = "Ariengambleswhilebeingabillionaire";
+            if (password === validPassword) {
+                isAdmin = true;
+                coinBalance = 999999999;  // Admin coins
+                alert("Admin verified! Coin balance is now set to 999999999.");
+            } else {
+                alert("Invalid password. You are not an admin.");
+            }
+            document.getElementById('verification-popup').style.display = 'none';
+        }
+
+        // Open feedback form
+        function openFeedback() {
+            document.getElementById('feedback-popup').style.display = 'block';
+        }
+
+        // Submit fake feedback
+        function submitFeedback() {
+            const feedback = document.getElementById('feedback-text').value;
+            alert("Feedback submitted: " + feedback);
+            document.getElementById('feedback-popup').style.display = 'none';
+        }
+
+        // Slot Game Spin Function
+        function spinSlot() {
+            const fruits = ["🍒", "🍋", "🍉", "🍊", "🍇"];
+            let reel1 = fruits[Math.floor(Math.random() * fruits.length)];
+            let reel2 = fruits[Math.floor(Math.random() * fruits.length)];
+            let reel3 = fruits[Math.floor(Math.random() * fruits.length)];
+
+            document.getElementById('reel-1').innerText = reel1;
+            document.getElementById('reel-2').innerText = reel2;
+            document.getElementById('reel-3').innerText = reel3;
+        }
+
+        // Flappy Bird Game Logic
+        let bird;
+        let pipes = [];
+        let gravity = 0.6;
+        let lift = -15;
+        let isFlapping = false;
+        let gameCanvas;
+        let ctx;
+
+        function setupGame() {
+            gameCanvas = document.getElementById('gameCanvas');
+            ctx = gameCanvas.getContext('2d');
+
+            bird = {
+                x: 50,
+                y: 150,
+                width: 20,
+                height: 20,
+                velocity: 0,
+            };
+
+            window.addEventListener('keydown', function (e) {
+                if (e.code === "Space") {
+                    isFlapping = true;
+                }
+            });
+
+            startGame();
+        }
+
+        function startGame() {
+            bird.y = 150;
+            bird.velocity = 0;
+            pipes = [];
+            highScore = Math.max(highScore, highScore);
+            document.getElementById('high-score').innerText = highScore;
+            gameLoop();
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+
+            bird.velocity += gravity;
+            bird.y += bird.velocity;
+
+            if (bird.y > gameCanvas.height - bird.height) {
+                bird.y = gameCanvas.height - bird.height;
+                bird.velocity = 0;
+            }
+
+            if (isFlapping) {
+                bird.velocity = lift;
+                isFlapping = false;
+            }
+
+            ctx.fillStyle = "#ff0";
+            ctx.fillRect(bird.x, bird.y, bird.width, bird.height);
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        setupGame();
+    </script>
+</body>
+</html>
