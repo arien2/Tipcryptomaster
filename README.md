@@ -54,6 +54,7 @@
         .copy-btn:hover {
             background-color: #218838;
         }
+
         /* Game Styles */
         .game-container {
             margin-top: 50px;
@@ -66,6 +67,39 @@
             margin: 0 auto;
             border-radius: 5px;
         }
+        .slot-container {
+            margin-top: 50px;
+        }
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .slot-item {
+            font-size: 40px;
+            padding: 20px;
+            background-color: #28a745;
+            color: white;
+            margin: 0 10px;
+            border-radius: 5px;
+        }
+        .slot-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .slot-button:hover {
+            background-color: #218838;
+        }
+        .coin-balance {
+            font-size: 1.5em;
+            color: #f39c12;
+            font-weight: bold;
+            margin: 20px;
+        }
         #game-board {
             background-color: #eee;
             width: 300px;
@@ -73,9 +107,18 @@
             margin: 0 auto;
             border-radius: 5px;
         }
-        #game-board canvas {
-            display: block;
+        /* Style for feedback section */
+        #feedback-popup {
+            margin-top: 20px;
+            background-color: #eee;
+            padding: 20px;
+            width: 300px;
             margin: 0 auto;
+            border-radius: 10px;
+        }
+        #feedback-popup textarea {
+            width: 100%;
+            height: 100px;
         }
     </style>
 </head>
@@ -89,6 +132,12 @@
     <button onclick="verifyAdmin()">Submit</button>
     <div id="admin-status"></div>
 
+    <!-- Coin Balance -->
+    <div class="coin-balance">
+        <span id="coin-balance">Coin Balance: 0</span>
+    </div>
+
+    <!-- Crypto Addresses -->
     <h3>Tip me with Bitcoin (BTC):</h3>
     <p class="crypto-address" id="btc-address">bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48 <button class="copy-btn" onclick="copyToClipboard('btc-address')">Copy</button></p>
     
@@ -112,10 +161,21 @@
         <button class="copy-btn" onclick="submitFeedback()">Submit</button>
     </div>
 
+    <!-- Slot Game Section -->
+    <div class="slot-container">
+        <h3>Slot Game (Requires 1000 Coins)</h3>
+        <div id="slot-machine" class="slot-machine">
+            <div class="slot-item" id="slot1">🍀</div>
+            <div class="slot-item" id="slot2">🍀</div>
+            <div class="slot-item" id="slot3">🍀</div>
+        </div>
+        <button class="slot-button" onclick="playSlotGame()">Spin Slot</button>
+    </div>
+
     <!-- Game Section -->
     <div class="game-container" id="game-container">
         <h3>Simple Game: Click to Play</h3>
-        <button onclick="startGame()">Start Simple Game</button>
+        <button onclick="startSimpleGame()">Start Simple Game</button>
         <div id="game-board"></div>
     </div>
 
@@ -143,6 +203,7 @@
                 coinBalance = 999999999;  // Admin coins
                 document.getElementById('admin-status').innerText = "Admin verified! Coin balance is now set to 999999999.";
                 document.getElementById('admin-status').style.color = "green";
+                document.getElementById('coin-balance').innerText = `Coin Balance: ${coinBalance}`;
             } else {
                 document.getElementById('admin-status').innerText = "Invalid password. You are not an admin.";
                 document.getElementById('admin-status').style.color = "red";
@@ -160,28 +221,30 @@
             document.getElementById('feedback-popup').style.display = 'none';
         }
 
-        // Simple Game
-        function startGame() {
-            let score = 0;
-            let gameBoard = document.getElementById("game-board");
-            gameBoard.innerHTML = `<h4>Score: <span id="score">${score}</span></h4>`;
+        // Slot Game
+        function playSlotGame() {
+            if (coinBalance >= 1000) {
+                coinBalance -= 1000;  // Deduct coins
+                document.getElementById('coin-balance').innerText = `Coin Balance: ${coinBalance}`;
+                const slot1 = ['🍀', '🍒', '🍋', '🍉'][Math.floor(Math.random() * 4)];
+                const slot2 = ['🍀', '🍒', '🍋', '🍉'][Math.floor(Math.random() * 4)];
+                const slot3 = ['🍀', '🍒', '🍋', '🍉'][Math.floor(Math.random() * 4)];
+                document.getElementById('slot1').innerText = slot1;
+                document.getElementById('slot2').innerText = slot2;
+                document.getElementById('slot3').innerText = slot3;
 
-            let interval = setInterval(() => {
-                score++;
-                document.getElementById("score").innerText = score;
-            }, 1000);
-
-            // Stop the game after 10 seconds
-            setTimeout(() => {
-                clearInterval(interval);
-                alert("Game Over! Final score: " + score);
-                if (score > highScore) {
-                    highScore = score;
-                    alert("New High Score: " + highScore);
+                // Check if all three are the same
+                if (slot1 === slot2 && slot2 === slot3) {
+                    coinBalance += 2000; // Win and add coins
+                    alert("You won! You earned 2000 coins!");
+                    document.getElementById('coin-balance').innerText = `Coin Balance: ${coinBalance}`;
                 }
-            }, 10000);
+            } else {
+                alert("You need 1000 coins to play!");
+            }
         }
 
-    </script>
-</body>
-</html>
+        // Simple Game
+        function startSimpleGame() {
+            let score = 0;
+            let gameBoard = document
