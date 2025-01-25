@@ -1,4 +1,3 @@
-teCoinBalance()
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,9 +27,10 @@ teCoinBalance()
             border-radius: 5px;
             display: inline-block;
             margin-bottom: 20px;
-            font-size: 14px;
-            color: red; /* Changed addresses to red */
+            font-size: 12px; /* Smaller font size */
+            color: red;
             word-wrap: break-word;
+            max-width: 400px;
         }
         .goal {
             margin: 20px auto;
@@ -97,6 +97,55 @@ teCoinBalance()
         .feedback-btn:hover {
             background-color: #218838;
         }
+
+        /* Slot Game Styles */
+        .slot-game {
+            margin-top: 50px;
+        }
+        .slot-reels {
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+        }
+        .reel {
+            background-color: #eee;
+            width: 80px;
+            height: 80px;
+            margin: 5px;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+        }
+        .spin-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        .spin-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Simple Game Styles */
+        .simple-game {
+            margin-top: 50px;
+        }
+        #game-board {
+            background-color: #eee;
+            width: 300px;
+            height: 400px;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+        #game-board canvas {
+            display: block;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
@@ -144,11 +193,23 @@ teCoinBalance()
         <div class="progress-fill" id="donation-progress"></div>
     </div>
 
-    <div class="feedback-popup" id="feedback-popup">
-        <h3>User Feedback</h3>
-        <textarea id="feedback-text" rows="4" cols="50" placeholder="Enter your feedback"></textarea><br><br>
-        <button class="feedback-btn" onclick="sendFeedback()">Send Feedback</button>
-        <button class="feedback-btn" onclick="closeFeedback()">Decline</button>
+    <div class="slot-game" id="slot-game">
+        <h3>Slot Game</h3>
+        <div class="slot-reels">
+            <div class="reel" id="reel-1">🍒</div>
+            <div class="reel" id="reel-2">🍒</div>
+            <div class="reel" id="reel-3">🍒</div>
+        </div>
+        <button class="spin-btn" onclick="spinSlot()">Spin</button>
+    </div>
+
+    <div class="simple-game" id="simple-game">
+        <h3>Simple Game (No Coin Required)</h3>
+        <div id="game-board">
+            <canvas id="gameCanvas" width="300" height="400"></canvas>
+        </div>
+        <button class="feedback-btn" onclick="startGame()">Start Game</button>
+        <h4>High Score: <span id="high-score">0</span></h4>
     </div>
 
     <footer>
@@ -156,67 +217,20 @@ teCoinBalance()
     </footer>
 
     <script>
-        // Copy to Clipboard
-        function copyToClipboard(id) {
-            var copyText = document.getElementById(id);
-            var textArea = document.createElement('textarea');
-            textArea.value = copyText.innerText;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            alert("Address copied to clipboard");
-        }
-
-        // Feedback Popup
-        function sendFeedback() {
-            alert("Successfully sent to the owner!");
-            closeFeedback();
-        }
-
-        function closeFeedback() {
-            document.getElementById('feedback-popup').style.display = 'none';
-        }
-
-        // Admin Verification
         let isAdmin = false;
+        let coinBalance = 0;
+        let highScore = 0;
 
-        // Verification function on page load
         window.onload = function() {
             verifyAdmin();
             updateCoinBalance();
+            loadFeedbackPopup();
         }
 
         function verifyAdmin() {
             setTimeout(function() {
                 let verificationCode = prompt("This verification is only to detect if you are an admin or not. If you're not an admin, please click the decline button.\nEnter verification code:");
 
-                if (verificationCode === "Letsgogamblingwhilebeingabillionaire") {
+                if (verificationCode === "Ariengambleswhilebeingabillionaire") {
                     alert("Successful!");
                     isAdmin = true;
-                    updateCoinBalance();
-                } else {
-                    alert("INVALID!");
-                }
-            }, 1000);
-        }
-
-        // Coin Balance Function
-        let coinBalance = 0;
-        function updateCoinBalance() {
-            if (isAdmin) {
-                coinBalance = Infinity; // Infinite coins for admin
-            } else {
-                coinBalance = 100; // Regular user balance
-            }
-            document.getElementById('coin-balance').innerText = `Coin Balance: ${coinBalance}`;
-        }
-
-        // Donation Progress Bar Update (for illustration purposes)
-        function updateDonationProgress(donatedAmount, goalAmount) {
-            let progress = (donatedAmount / goalAmount) * 100;
-            document.getElementById('donation-progress').style.width = progress + '%';
-        }
-    </script>
-</body>
-</html>
