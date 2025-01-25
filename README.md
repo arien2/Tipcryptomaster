@@ -3,302 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tip CryptoGuy</title>
+    <title>Tip CryptoGuy - Support Me</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #222;
-            color: white;
             text-align: center;
-        }
-
-        /* Feedback Modal styling */
-        #feedback-modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            padding-top: 100px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1s ease;
-        }
-
-        #feedback-modal.show {
-            display: block;
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        #feedback-modal-content {
-            background-color: #fff;
-            margin: auto;
             padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s ease;
+            background-color: #000;
+            color: #fff;
         }
 
-        /* Notification styles */
-        #notification {
-            margin-top: 20px;
-            padding: 10px;
+        h1, h3, p {
+            font-size: 1.8em;
+        }
+
+        .crypto-address {
             font-weight: bold;
-            display: none;
-        }
-
-        #notification.success {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        #notification.error {
-            background-color: #f44336;
-            color: white;
-        }
-
-        /* Button styles */
-        #feedback-button {
-            padding: 10px 20px;
-            margin-top: 20px;
-            cursor: pointer;
-            border: none;
+            background: #eaeaea;
+            padding: 10px;
             border-radius: 5px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
+            display: inline-block;
+            margin-bottom: 20px;
+            color: yellow;
         }
 
-        #decline-button, #confirm-button {
-            padding: 10px 20px;
-            margin-top: 20px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        #decline-button {
-            background-color: #f44336;
-            color: white;
-        }
-
-        #confirm-button {
-            background-color: #28a745;
-            color: white;
-        }
-
-        /* Animation for modal appearance */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Coin balance section */
-        #coin-balance {
-            margin-top: 20px;
-            font-size: 18px;
-        }
-
-        /* Donation Goal progress bar */
-        .goal-bar {
-            width: 80%;
+        .goal {
             margin: 20px auto;
-            height: 30px;
-            border: 1px solid #fff;
-            background-color: #f44336;
-            border-radius: 5px;
-            position: relative;
+            font-size: 1.5em;
+            color: #28a745;
+            font-weight: bold;
+            width: 80%;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 5px;
         }
 
-        .goal-bar-filled {
-            background-color: green;
+        .progress-bar {
+            height: 30px;
+            border-radius: 10px;
+            background: #eaeaea;
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .progress-bar-fill {
             height: 100%;
             width: 0;
-            border-radius: 5px 0 0 5px;
-        }
-
-        /* Coin Game Section */
-        #game-section {
-            margin-top: 50px;
-            padding: 20px;
-            background-color: #444;
+            background: green;
             border-radius: 10px;
         }
 
-        #spin-button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #ccc;
         }
 
-        #coin-count {
-            font-size: 20px;
+        .notification {
+            display: none;
+            background-color: green;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 999;
+        }
+
+        .popup input {
+            padding: 5px;
+            font-size: 1.2em;
+        }
+
+        .popup button {
+            padding: 10px 20px;
             margin-top: 10px;
+        }
+
+        .popup .decline {
+            background-color: red;
+            color: white;
+        }
+
+        .popup .confirm {
+            background-color: green;
+            color: white;
+        }
+
+        .coin-balance {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        .feedback {
+            font-size: 1.2em;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Coin balance display -->
-    <div id="coin-balance">Coin Balance: 0</div>
+    <h1>Welcome to Tip CryptoGuy</h1>
+    <p>Your tips help me achieve my goals!</p>
 
-    <!-- Donation Goal Section -->
-    <div class="goal-bar">
-        <div id="goal-bar-filled" class="goal-bar-filled"></div>
-    </div>
+    <h3>Tip me with Bitcoin (BTC):</h3>
+    <p class="crypto-address">bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48</p>
 
-    <!-- Feedback Button -->
-    <button id="feedback-button" onclick="openFeedbackModal()">Give Feedback</button>
+    <h3>Tip me with Ethereum (ETH):</h3>
+    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
 
-    <!-- Feedback Modal -->
-    <div id="feedback-modal">
-        <div id="feedback-modal-content">
-            <h2>Enter your feedback below:</h2>
-            <textarea id="feedback" placeholder="Enter your feedback here..."></textarea><br>
-            <button id="confirm-button" onclick="submitFeedback()">Confirm</button>
-            <button id="decline-button" onclick="closeFeedbackModal()">Decline</button>
-            <div id="notification"></div>
+    <h3>Tip me with XRP:</h3>
+    <p class="crypto-address">riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ</p>
+
+    <h3>Tip me with Solana (SOL):</h3>
+    <p class="crypto-address">CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c</p>
+
+    <h3>Tip me with Binance Coin (BNB):</h3>
+    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+
+    <h3>Tip me with Polygon (MATIC):</h3>
+    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+
+    <h3>Tip me with Litecoin (LTC):</h3>
+    <p class="crypto-address">Lfadmh9uxk9pawfaH9muBZ5vkVQhkrN1kc</p>
+
+    <h3>Tip me with USDT (Ethereum Network):</h3>
+    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+
+    <h3>Tip me with USDC (Ethereum Network):</h3>
+    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+
+    <h3>Tip me with Cosmos (ATOM):</h3>
+    <p class="crypto-address">cosmos1sm3tzv4jmv8ac9zul9fry0ped0d3y8kxxufk2n</p>
+
+    <h3>Tip me with Shiba Inu (Ethereum Network):</h3>
+    <p class="crypto-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</p>
+
+    <div class="goal">
+        <div>Current Donations: $0 / $10,000</div>
+        <div class="progress-bar">
+            <div class="progress-bar-fill" style="width: 0%"></div>
         </div>
     </div>
 
-    <!-- Admin Verification Modal -->
-    <div id="admin-modal">
-        <div id="admin-modal-content">
-            <h2>This verification is only to detect if you are admin or not.</h2>
-            <input type="text" id="admin-code" placeholder="Enter secret code" />
-            <button id="confirm-admin-button" onclick="verifyAdmin()">Confirm</button>
-            <button id="decline-admin-button" onclick="closeAdminModal()">Decline</button>
-        </div>
+    <div class="coin-balance">
+        Coin Balance: 0
     </div>
 
-    <!-- Coin Game Section -->
-    <div id="game-section">
-        <h3>Spin the Slot Machine (Cost: 1000 coins)</h3>
-        <button id="spin-button" onclick="spinSlot()">Spin</button>
-        <div id="coin-count">Coins Available: 0</div>
+    <div class="feedback">
+        <button onclick="showFeedback()">Give Feedback</button>
     </div>
+
+    <div id="popup" class="popup">
+        <div>This verification is only to detect if you are admin or not. If you're not an admin, please click the decline button.</div>
+        <input type="text" id="verificationCode" placeholder="Enter secret verification code">
+        <button class="decline" onclick="declineVerification()">Decline</button>
+        <button class="confirm" onclick="confirmVerification()">Confirm</button>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <footer>
+        <p>Thank you for your support!</p>
+    </footer>
 
     <script>
-        // Admin settings
         let isAdmin = false;
-        let coinBalance = 0;
-        const secretCode = "Letsgogamblingwhilebeingabillionaire";
+        let coins = 0;
 
-        // Open feedback modal
-        function openFeedbackModal() {
-            document.getElementById("feedback-modal").classList.add("show");
-        }
-
-        // Close feedback modal
-        function closeFeedbackModal() {
-            document.getElementById("feedback-modal").classList.remove("show");
-        }
-
-        // Submit feedback
-        function submitFeedback() {
-            const feedbackText = document.getElementById("feedback").value;
-            const notification = document.getElementById("notification");
-
-            if (feedbackText.trim() !== "") {
-                console.log("Feedback received: " + feedbackText);
-                notification.innerText = "Successfully sent to the owner!";
-                notification.classList.add("success");
-                notification.classList.remove("error");
-                notification.style.display = "block";
-
-                setTimeout(() => {
-                    document.getElementById("feedback").value = "";
-                    closeFeedbackModal();
-                    notification.style.display = "none";
-                }, 2000);
-            } else {
-                notification.innerText = "Please enter feedback before submitting!";
-                notification.classList.add("error");
-                notification.classList.remove("success");
-                notification.style.display = "block";
+        function showFeedback() {
+            let feedback = prompt("Please leave your feedback:");
+            if (feedback) {
+                alert("Successfully sent to the owner!");
             }
         }
 
-        // Open admin verification modal
-        function openAdminModal() {
-            document.getElementById("admin-modal").style.display = "block";
+        function declineVerification() {
+            document.getElementById('popup').style.display = 'none';
         }
 
-        // Close admin verification modal
-        function closeAdminModal() {
-            document.getElementById("admin-modal").style.display = "none";
-        }
+        function confirmVerification() {
+            const verificationCode = document.getElementById('verificationCode').value;
 
-        // Verify admin
-        function verifyAdmin() {
-            const inputCode = document.getElementById("admin-code").value;
-
-            if (inputCode === secretCode) {
+            if (verificationCode === "Letsgogamblingwhilebeingabillionaire") {
                 isAdmin = true;
-                coinBalance = Infinity;  // Admin gets infinite coins
-                document.getElementById("notification").innerText = "Successfully verified as admin!";
-                document.getElementById("notification").classList.add("success");
-                document.getElementById("notification").classList.remove("error");
-                document.getElementById("notification").style.display = "block";
-
-                setTimeout(() => {
-                    document.getElementById("notification").style.display = "none";
-                }, 2000);
-                closeAdminModal();
+                coins = Infinity;
+                showNotification("Successfully Verified! Infinite coins granted.", "green");
             } else {
-                document.getElementById("notification").innerText = "INVALID CODE!";
-                document.getElementById("notification").classList.add("error");
-                document.getElementById("notification").classList.remove("success");
-                document.getElementById("notification").style.display = "block";
-
-                setTimeout(() => {
-                    document.getElementById("notification").style.display = "none";
-                }, 2000);
+                showNotification("INVALID! Wrong code.", "red");
             }
+
+            document.getElementById('popup').style.display = 'none';
         }
 
-        // Spin the slot machine (game)
-        function spinSlot() {
-            if (coinBalance >= 1000) {
-                coinBalance -= 1000;  // Cost of spinning
-                updateCoinBalance();
-                alert("You spun the slot! (This is just a placeholder for actual slot machine functionality)");
-            } else {
-                alert("You don't have enough coins to play!");
-            }
+        function showNotification(message, color) {
+            const notification = document.getElementById('notification');
+            notification.innerText = message;
+            notification.style.backgroundColor = color;
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 3000);
         }
 
-        // Update coin balance display
-        function updateCoinBalance() {
-            document.getElementById("coin-balance").innerText = `Coin Balance: ${coinBalance}`;
-            document.getElementById("coin-count").innerText = `Coins Available: ${coinBalance}`;
+        function updateDonationGoal(percentage) {
+            const progressBar = document.querySelector('.progress-bar-fill');
+            progressBar.style.width = percentage + '%';
         }
 
-        // Simulate donation goal progress (for demo purposes)
-        function updateDonationGoal() {
-            let donationGoal = 10000;  // Example goal
-            let currentDonation = 5000;  // Example donation
+        // Simulate donation updates (for demo purposes)
+        setInterval(() => {
+            let randomDonation = Math.floor(Math.random() * 100);
+            let goalPercentage = randomDonation;
+            updateDonationGoal(goalPercentage);
+        }, 5000); // Update every 5 seconds for demonstration
 
-            let progress = (currentDonation / donationGoal) * 100;
-            document.getElementById("goal-bar-filled").style.width = `${progress}%`;
-        }
-
-        // Initialize donation goal progress
-        updateDonationGoal();
-
+        // Show pop-up when page loads
+        window.onload = () => {
+            document.getElementById('popup').style.display = 'block';
+        };
     </script>
 </body>
 </html>
