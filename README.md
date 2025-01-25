@@ -146,12 +146,18 @@
 
     <h3>Tip me with Dogecoin (DOGE):</h3>
     <p class="crypto-address" id="doge-address">D9W4z33sejaWfrhTYL8DiD5GGUn7gUjT3fP <button class="copy-btn" onclick="copyToClipboard('doge-address')">Copy</button></p>
-    
+
     <h3>Tip me with Litecoin (LTC):</h3>
     <p class="crypto-address" id="ltc-address">LcFf4y7wx8v9KjiMdx74y5JTK6Lgti3AHXw <button class="copy-btn" onclick="copyToClipboard('ltc-address')">Copy</button></p>
     
-    <h3>Tip me with Bitcoin Cash (BCH):</h3>
-    <p class="crypto-address" id="bch-address">qzv5u7f76nxjw2d8cqr9p0s0g54c9l85y3gn9wuh59 <button class="copy-btn" onclick="copyToClipboard('bch-address')">Copy</button></p>
+    <h3>Tip me with USDT (Tether):</h3>
+    <p class="crypto-address" id="usdt-address">TX1v9m3s9af8G0jzA4sYdG91X2AwXt0kzp <button class="copy-btn" onclick="copyToClipboard('usdt-address')">Copy</button></p>
+
+    <h3>Tip me with USDC:</h3>
+    <p class="crypto-address" id="usdc-address">0x5F97A0FE50eB64D50C7B7c106Ce9b95312A7dD8A <button class="copy-btn" onclick="copyToClipboard('usdc-address')">Copy</button></p>
+
+    <h3>Tip me with TrumpCoin (TRUMP):</h3>
+    <p class="crypto-address" id="trump-address">TRUMPTOKEN1234567890ABCDEFGH <button class="copy-btn" onclick="copyToClipboard('trump-address')">Copy</button></p>
 
     <!-- Feedback Section -->
     <button onclick="openFeedback()">Give Feedback</button>
@@ -217,34 +223,19 @@
 
         function submitFeedback() {
             const feedback = document.getElementById('feedback-text').value;
-            alert("Feedback submitted: " + feedback);
-            document.getElementById('feedback-popup').style.display = 'none';
+            alert(`Feedback submitted: ${feedback}`);
+            document.getElementById('feedback-text').value = ''; // Clear feedback textarea
+            document.getElementById('feedback-popup').style.display = 'none'; // Close feedback form
         }
 
-        // Slot Game
+        // Slot Game Section
         function playSlotGame() {
             if (coinBalance >= 1000) {
-                coinBalance -= 1000;  // Deduct coins
+                coinBalance -= 1000;
                 document.getElementById('coin-balance').innerText = `Coin Balance: ${coinBalance}`;
-                const slot1 = ['🍀', '🍒', '🍋', '🍉'][Math.floor(Math.random() * 4)];
-                const slot2 = ['🍀', '🍒', '🍋', '🍉'][Math.floor(Math.random() * 4)];
-                const slot3 = ['🍀', '🍒', '🍋', '🍉'][Math.floor(Math.random() * 4)];
-                document.getElementById('slot1').innerText = slot1;
-                document.getElementById('slot2').innerText = slot2;
-                document.getElementById('slot3').innerText = slot3;
-
-                // Check if all three are the same
-                if (slot1 === slot2 && slot2 === slot3) {
-                    coinBalance += 2000; // Win and add coins
-                    alert("You won! You earned 2000 coins!");
-                    document.getElementById('coin-balance').innerText = `Coin Balance: ${coinBalance}`;
-                }
-            } else {
-                alert("You need 1000 coins to play!");
-            }
-        }
-
-        // Simple Game
-        function startSimpleGame() {
-            let score = 0;
-            let gameBoard = document
+                const slots = ['🍒', '🍋', '🍀', '🍇', '🍉'];
+                const result1 = slots[Math.floor(Math.random() * slots.length)];
+                const result2 = slots[Math.floor(Math.random() * slots.length)];
+                const result3 = slots[Math.floor(Math.random() * slots.length)];
+                document.getElementById('slot1').innerText = result1;
+                document.getElementById('slot2').inner
