@@ -1,3 +1,4 @@
+teCoinBalance()
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,8 +28,9 @@
             border-radius: 5px;
             display: inline-block;
             margin-bottom: 20px;
-            font-size: 14px; /* Address font size adjustment */
-            color: red; /* Changed to red */
+            font-size: 14px;
+            color: red; /* Changed addresses to red */
+            word-wrap: break-word;
         }
         .goal {
             margin: 20px auto;
@@ -201,4 +203,20 @@
 
         // Coin Balance Function
         let coinBalance = 0;
-        function updateCoinBalance()
+        function updateCoinBalance() {
+            if (isAdmin) {
+                coinBalance = Infinity; // Infinite coins for admin
+            } else {
+                coinBalance = 100; // Regular user balance
+            }
+            document.getElementById('coin-balance').innerText = `Coin Balance: ${coinBalance}`;
+        }
+
+        // Donation Progress Bar Update (for illustration purposes)
+        function updateDonationProgress(donatedAmount, goalAmount) {
+            let progress = (donatedAmount / goalAmount) * 100;
+            document.getElementById('donation-progress').style.width = progress + '%';
+        }
+    </script>
+</body>
+</html>
