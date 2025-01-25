@@ -218,19 +218,4 @@
 
     <script>
         let isAdmin = false;
-        let coinBalance = 0;
-        let highScore = 0;
-
-        window.onload = function() {
-            verifyAdmin();
-            updateCoinBalance();
-            loadFeedbackPopup();
-        }
-
-        function verifyAdmin() {
-            setTimeout(function() {
-                let verificationCode = prompt("This verification is only to detect if you are an admin or not. If you're not an admin, please click the decline button.\nEnter verification code:");
-
-                if (verificationCode === "Ariengambleswhilebeingabillionaire") {
-                    alert("Successful!");
-                    isAdmin = true;
+        let coinBalance =
