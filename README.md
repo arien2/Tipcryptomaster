@@ -269,3 +269,30 @@
         if (adminCode === correctCode) {
             alert("Admin Verified!");
             updateCoinBalance(999999999);
+        } else {
+            alert("Invalid Admin Code");
+        }
+    }
+
+    // Redeem Coins Logic
+    function redeemCoins() {
+        const redeemCode = document.getElementById('redeemCode').value;
+        const correctCode = "SpecialRedeemCode123";
+        if (redeemCode === correctCode) {
+            alert("Coins Redeemed!");
+            updateCoinBalance(5000);  // Adds 5000 coins
+        } else {
+            alert("Invalid Redeem Code");
+        }
+    }
+
+    // Feedback Logic
+    function showFeedbackForm() {
+        const feedbackBox = document.querySelector('.feedback-box');
+        feedbackBox.style.display = feedbackBox.style.display === 'none' || feedbackBox.style.display === '' ? 'block' : 'none';
+    }
+
+    function submitFeedback() {
+        const feedback = document.getElementById('feedback').value;
+        alert(`Thank you for your feedback: "${feedback}"`);
+        document.getElementById('
