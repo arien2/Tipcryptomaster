@@ -28,7 +28,7 @@
             color: yellow;
             font-size: 14px;
             word-wrap: break-word;
-            max-width: 200px; /* Ensure the addresses fit */
+            max-width: 200px;
             text-overflow: ellipsis;
             overflow: hidden;
         }
@@ -289,3 +289,19 @@
     // Feedback Logic
     function showFeedbackForm() {
         const feedbackBox = document.querySelector('.feedback-box');
+        feedbackBox.style.display = 'block';
+    }
+
+    function submitFeedback() {
+        const feedback = document.getElementById('feedback').value;
+        alert("Feedback submitted: " + feedback);
+    }
+
+    // Call this function when the page loads to display crypto addresses
+    window.onload = function() {
+        displayCryptoAddresses();
+    };
+</script>
+
+</body>
+</html>
