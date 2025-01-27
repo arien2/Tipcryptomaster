@@ -289,10 +289,3 @@
     // Feedback Logic
     function showFeedbackForm() {
         const feedbackBox = document.querySelector('.feedback-box');
-        feedbackBox.style.display = feedbackBox.style.display === 'none' || feedbackBox.style.display === '' ? 'block' : 'none';
-    }
-
-    function submitFeedback() {
-        const feedback = document.getElementById('feedback').value;
-        alert(`Thank you for your feedback: "${feedback}"`);
-        document.getElementById('
