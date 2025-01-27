@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -149,54 +150,7 @@
     <h1>Welcome to Tip CryptoGuy</h1>
 
     <!-- Crypto Addresses Section -->
-    <div class="address-box">
-        <div class="address">Bitcoin: bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48</div>
-        <button class="copy-btn" onclick="copyToClipboard('Bitcoin')">Copy</button>
-    </div>
-    <div class="address-box">
-        <div class="address">Ethereum: 0x65793418b7a6b0Dced78d59AbD44041b1567BE63</div>
-        <button class="copy-btn" onclick="copyToClipboard('Ethereum')">Copy</button>
-    </div>
-    <div class="address-box">
-        <div class="address">XRP: riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ</div>
-        <button class="copy-btn" onclick="copyToClipboard('XRP')">Copy</button>
-    </div>
-    <div class="address-box">
-        <div class="address">Solana: CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c</div>
-        <button class="copy-btn" onclick="copyToClipboard('Solana')">Copy</button>
-    </div>
-    <div class="address-box">
-        <div class="address">BNB: 0x65793418b7a6b0Dced78d59AbD44041b1567BE63</div>
-        <button class="copy-btn" onclick="copyToClipboard('BNB')">Copy</button>
-    </div>
-    <div class="address-box">
-        <div class="address">Polygon: 0x65793418b7a6b0Dced78d59AbD44041b1567BE63</div>
-        <button class="copy-btn" onclick="copyToClipboard('Polygon')">Copy</button>
-    </div>
-    <div class="address-box">
-        <div class="address">Litecoin: Lfadmh9uxk9pawfaH9muBZ5vkVQhkrN1kc</div>
-        <button class="copy-btn" onclick="copyToClipboard('Litecoin')">Copy</button>
-    </div>
-    <div class="address-box">
-        <div class="address">USDT: 0x65793418b7a6b0Dced78d59AbD44041b1567BE63</div>
-        <button class="copy-btn" onclick="copyToClipboard('USDT')">Copy</button>
-    </div>
-    <div class="address-box">
-        <div class="address">USDC: 0x65793418b7a6b0Dced78d59AbD44041b1567BE63</div>
-        <button class="copy-btn" onclick="copyToClipboard('USDC')">Copy</button>
-    </div>
-    <div class="address-box">
-        <div class="address">COSMOS (ATOM): cosmos1sm3tzv4jmv8ac9zul9fry0ped0d3y8kxxufk2n</div>
-        <button class="copy-btn" onclick="copyToClipboard('COSMOS')">Copy</button>
-    </div>
-    <div class="address-box">
-        <div class="address">Trump Coin (Solana): CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c</div>
-        <button class="copy-btn" onclick="copyToClipboard('Trump Coin')">Copy</button>
-    </div>
-    <div class="address-box">
-        <div class="address">Shiba Inu (Ethereum): 0x65793418b7a6b0Dced78d59AbD44041b1567BE63</div>
-        <button class="copy-btn" onclick="copyToClipboard('Shiba Inu')">Copy</button>
-    </div>
+    <div id="cryptoAddresses"></div>
 
     <!-- Coin Balance Section -->
     <h3>Current Coin Balance: <span id="coinBalance">0</span> coins</h3>
@@ -235,4 +189,97 @@
     <div class="feedback-form">
         <button class="feedback-button" onclick="showFeedbackForm()">Give Feedback</button>
         <div class="feedback-box">
-            <textarea id="feedback
+            <textarea id="feedback" placeholder="Your Feedback Here..."></textarea>
+            <button onclick="submitFeedback()">Submit</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Your crypto addresses
+    const addresses = {
+        Bitcoin: "bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48",
+        Ethereum: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63",
+        XRP: "riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ",
+        Solana: "CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c",
+        BNB: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63",
+        Polygon: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63",
+        Litecoin: "Lfadmh9uxk9pawfaH9muBZ5vkVQhkrN1kc",
+        USDT: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63",
+        USDC: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63",
+        COSMOS: "cosmos1sm3tzv4jmv8ac9zul9fry0ped0d3y8kxxufk2n",
+        TrumpCoin: "CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c",
+        ShibaInu: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63"
+    };
+
+    function displayCryptoAddresses() {
+        const cryptoDiv = document.getElementById('cryptoAddresses');
+        Object.keys(addresses).forEach(key => {
+            const div = document.createElement('div');
+            div.classList.add('address-box');
+            div.innerHTML = `<div class="address">${key}: ${addresses[key]}</div><button class="copy-btn" onclick="copyToClipboard('${key}')">Copy</button>`;
+            cryptoDiv.appendChild(div);
+        });
+    }
+
+    function copyToClipboard(addressName) {
+        const address = addresses[addressName];
+        navigator.clipboard.writeText(address).then(() => {
+            alert(addressName + " copied!");
+        });
+    }
+
+    // Slot Game Logic
+    function playSlotGame() {
+        const fruits = ['🍒', '🍇', '🍉', '🍎', '🍊', '🍍', '🍓'];
+        let result = [];
+        let win = false;
+
+        for (let i = 0; i < 3; i++) {
+            result.push(fruits[Math.floor(Math.random() * fruits.length)]);
+        }
+
+        // Show slot results
+        const slotMachine = document.getElementById('slotMachine');
+        const slotItems = slotMachine.querySelectorAll('.slot-item');
+        slotItems.forEach((item, index) => {
+            item.textContent = result[index];
+        });
+
+        // Check if all fruits match
+        if (result[0] === result[1] && result[1] === result[2]) {
+            win = true;
+        }
+
+        // Update message
+        if (win) {
+            alert("You win 10,000 coins!");
+            document.getElementById('coinBalance').textContent = 10000;
+        } else {
+            alert("Try Again!");
+        }
+    }
+
+    function verifyAdmin() {
+        const adminCode = document.getElementById('adminCode').value;
+        if (adminCode === "admin123") {
+            document.getElementById('message').textContent = "Admin Verified!";
+        } else {
+            document.getElementById('message').textContent = "Invalid Admin Code!";
+        }
+    }
+
+    function redeemCoins() {
+        const redeemCode = document.getElementById('redeemCode').value;
+        if (redeemCode === "REDEEM1000") {
+            document.getElementById('redeemMessage').textContent = "Successfully Redeemed 1000 coins!";
+        } else {
+            document.getElementById('redeemMessage').textContent = "Invalid Code!";
+        }
+    }
+
+    displayCryptoAddresses();
+</script>
+
+</body>
+</html>
