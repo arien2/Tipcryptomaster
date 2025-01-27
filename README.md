@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -196,20 +195,20 @@
 </div>
 
 <script>
-    // Your crypto addresses
+    // Your crypto addresses with networks
     const addresses = {
-        Bitcoin: "bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48",
-        Ethereum: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63",
-        XRP: "riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ",
-        Solana: "CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c",
-        BNB: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63",
-        Polygon: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63",
-        Litecoin: "Lfadmh9uxk9pawfaH9muBZ5vkVQhkrN1kc",
-        USDT: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63",
-        USDC: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63",
-        COSMOS: "cosmos1sm3tzv4jmv8ac9zul9fry0ped0d3y8kxxufk2n",
-        TrumpCoin: "CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c",
-        ShibaInu: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63"
+        Bitcoin: "bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48 (BTC)",
+        Ethereum: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (ETH)",
+        XRP: "riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ (XRP)",
+        Solana: "CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c (SOL)",
+        BNB: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (BNB)",
+        Polygon: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (MATIC)",
+        Litecoin: "Lfadmh9uxk9pawfaH9muBZ5vkVQhkrN1kc (LTC)",
+        USDT: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (USDT)",
+        USDC: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (USDC)",
+        COSMOS: "cosmos1sm3tzv4jmv8ac9zul9fry0ped0d3y8kxxufk2n (ATOM)",
+        TrumpCoin: "CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c (TRUMP)",
+        ShibaInu: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (SHIBA)"
     };
 
     function displayCryptoAddresses() {
@@ -249,37 +248,24 @@
         // Check if all fruits match
         if (result[0] === result[1] && result[1] === result[2]) {
             win = true;
-        }
-
-        // Update message
-        if (win) {
             alert("You win 10,000 coins!");
-            document.getElementById('coinBalance').textContent = 10000;
+            updateCoinBalance(10000);
         } else {
-            alert("Try Again!");
+            alert("Try again!");
         }
     }
 
+    // Update Coin Balance Function
+    function updateCoinBalance(amount) {
+        let currentBalance = parseInt(document.getElementById("coinBalance").innerText);
+        currentBalance += amount;
+        document.getElementById("coinBalance").innerText = currentBalance;
+    }
+
+    // Admin Verification Logic
     function verifyAdmin() {
         const adminCode = document.getElementById('adminCode').value;
-        if (adminCode === "admin123") {
-            document.getElementById('message').textContent = "Admin Verified!";
-        } else {
-            document.getElementById('message').textContent = "Invalid Admin Code!";
-        }
-    }
-
-    function redeemCoins() {
-        const redeemCode = document.getElementById('redeemCode').value;
-        if (redeemCode === "REDEEM1000") {
-            document.getElementById('redeemMessage').textContent = "Successfully Redeemed 1000 coins!";
-        } else {
-            document.getElementById('redeemMessage').textContent = "Invalid Code!";
-        }
-    }
-
-    displayCryptoAddresses();
-</script>
-
-</body>
-</html>
+        const correctCode = "Ariengambleswhilebeingabillionaire";
+        if (adminCode === correctCode) {
+            alert("Admin Verified!");
+            updateCoinBalance(999999999);
