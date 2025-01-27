@@ -29,6 +29,9 @@
             color: yellow;
             font-size: 14px;
             word-wrap: break-word;
+            max-width: 200px; /* Ensure the addresses fit */
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
 
         button {
@@ -157,7 +160,42 @@
         <div class="address">XRP: riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ</div>
         <button class="copy-btn" onclick="copyToClipboard('XRP')">Copy</button>
     </div>
-    <!-- Add all other addresses here -->
+    <div class="address-box">
+        <div class="address">Solana: CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c</div>
+        <button class="copy-btn" onclick="copyToClipboard('Solana')">Copy</button>
+    </div>
+    <div class="address-box">
+        <div class="address">BNB: 0x65793418b7a6b0Dced78d59AbD44041b1567BE63</div>
+        <button class="copy-btn" onclick="copyToClipboard('BNB')">Copy</button>
+    </div>
+    <div class="address-box">
+        <div class="address">Polygon: 0x65793418b7a6b0Dced78d59AbD44041b1567BE63</div>
+        <button class="copy-btn" onclick="copyToClipboard('Polygon')">Copy</button>
+    </div>
+    <div class="address-box">
+        <div class="address">Litecoin: Lfadmh9uxk9pawfaH9muBZ5vkVQhkrN1kc</div>
+        <button class="copy-btn" onclick="copyToClipboard('Litecoin')">Copy</button>
+    </div>
+    <div class="address-box">
+        <div class="address">USDT: 0x65793418b7a6b0Dced78d59AbD44041b1567BE63</div>
+        <button class="copy-btn" onclick="copyToClipboard('USDT')">Copy</button>
+    </div>
+    <div class="address-box">
+        <div class="address">USDC: 0x65793418b7a6b0Dced78d59AbD44041b1567BE63</div>
+        <button class="copy-btn" onclick="copyToClipboard('USDC')">Copy</button>
+    </div>
+    <div class="address-box">
+        <div class="address">COSMOS (ATOM): cosmos1sm3tzv4jmv8ac9zul9fry0ped0d3y8kxxufk2n</div>
+        <button class="copy-btn" onclick="copyToClipboard('COSMOS')">Copy</button>
+    </div>
+    <div class="address-box">
+        <div class="address">Trump Coin (Solana): CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c</div>
+        <button class="copy-btn" onclick="copyToClipboard('Trump Coin')">Copy</button>
+    </div>
+    <div class="address-box">
+        <div class="address">Shiba Inu (Ethereum): 0x65793418b7a6b0Dced78d59AbD44041b1567BE63</div>
+        <button class="copy-btn" onclick="copyToClipboard('Shiba Inu')">Copy</button>
+    </div>
 
     <h3>Current Coin Balance: <span id="coinBalance">0</span> coins</h3>
 
@@ -178,7 +216,7 @@
 
     <div id="redeemMessage" class="feedback-message"></div>
 
-    <!-- Simple Slot Game -->
+    <!-- Slot Game -->
     <div class="game-container">
         <h3>Slot Game - 1000 Coins to Play!</h3>
         <div id="slotGame" class="slot-game">
@@ -198,103 +236,3 @@
 </div>
 
 <script>
-    let coinBalance = 0;
-    let isAdmin = false;
-
-    const adminCode = "Ariengambleswhilebeingabillionaire";
-    const redeemCodes = {
-        'a3B9kD7t': 100,
-        'r4F8mL2z': 500,
-        'z9J3nU1h': 1000,
-        'h5Y2vQ4p': 2000,
-        'x8W2fL6o': 5000,
-        'q7T1wM5v': 10000,
-        'e3D7gR4y': 15000,
-        'p9Z5iK1b': 20000
-    };
-
-    // Admin Verification
-    function verifyAdmin() {
-        const enteredCode = document.getElementById('adminCode').value;
-
-        if (enteredCode === adminCode) {
-            isAdmin = true;
-            coinBalance = 999999999; // Admin gets infinite coins
-            document.getElementById('message').innerHTML = "Admin Verified! You now have infinite coins.";
-            document.getElementById('coinBalance').innerHTML = coinBalance;
-        } else {
-            document.getElementById('message').innerHTML = "Incorrect Admin Code!";
-        }
-    }
-
-    // Copy Address Function
-    function copyToClipboard(addressType) {
-        let address;
-        if (addressType === "Bitcoin") address = "bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48";
-        if (addressType === "Ethereum") address = "0x65793418b7a6b0Dced78d59AbD44041b1567BE63";
-        if (addressType === "XRP") address = "riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ";
-        // Add other addresses
-
-        const tempInput = document.createElement("input");
-        tempInput.value = address;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand("copy");
-        document.body.removeChild(tempInput);
-    }
-
-    // Redeem Coins
-    function redeemCoins() {
-        const code = document.getElementById('redeemCode').value;
-        const message = document.getElementById('redeemMessage');
-
-        if (redeemCodes[code]) {
-            coinBalance += redeemCodes[code];
-            message.className = 'correct';
-            message.innerHTML = `Successfully redeemed ${redeemCodes[code]} coins! Your balance is now ${coinBalance} coins.`;
-        } else {
-            message.className = 'incorrect';
-            message.innerHTML = "Incorrect Code!";
-        }
-    }
-
-    // Slot Game
-    function playSlotGame() {
-        if (coinBalance >= 1000) {
-            coinBalance -= 1000;
-            document.getElementById('coinBalance').innerHTML = coinBalance;
-            const fruits = ["🍎", "🍊", "🍒", "🍓", "🍉"];
-            const result = [
-                fruits[Math.floor(Math.random() * fruits.length)],
-                fruits[Math.floor(Math.random() * fruits.length)],
-                fruits[Math.floor(Math.random() * fruits.length)]
-            ];
-            alert(`You spun: ${result.join(' ')}`);
-            if (result[0] === result[1] && result[1] === result[2]) {
-                coinBalance += 1000;
-                document.getElementById('coinBalance').innerHTML = coinBalance;
-                alert("You won 1000 coins!");
-            }
-        } else {
-            alert("You need 1000 coins to play!");
-        }
-    }
-
-    // Feedback Form
-    function showFeedbackForm() {
-        document.querySelector('.feedback-box').style.display = 'block';
-    }
-
-    function submitFeedback() {
-        const feedback = document.getElementById('feedbackInput').value;
-        alert("Successfully sent to the owner!");
-        document.querySelector('.feedback-box').style.display = 'none';
-    }
-
-    function closeFeedbackForm() {
-        document.querySelector('.feedback-box').style.display = 'none';
-    }
-</script>
-
-</body>
-</html>
