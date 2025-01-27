@@ -1,307 +1,207 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tip CryptoGuy</title>
+    <title>Crypto Gambling</title>
     <style>
         body {
-            background-color: #111;
-            color: white;
             font-family: Arial, sans-serif;
-        }
-
-        .container {
-            width: 80%;
-            margin: 0 auto;
-        }
-
-        .address-box {
-            background-color: #333;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .address {
-            color: yellow;
-            font-size: 14px;
-            word-wrap: break-word;
-            max-width: 200px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-
-        button {
-            background-color: #28a745;
-            border: none;
-            padding: 10px 15px;
+            background-color: #222;
             color: white;
-            cursor: pointer;
-            border-radius: 5px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        
+        .header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
         }
 
-        button:hover {
-            background-color: #218838;
+        .header h1 {
+            margin: 0;
         }
 
-        #coinBalance {
-            margin: 20px 0;
-            font-size: 18px;
+        .content {
+            padding: 20px;
         }
 
-        #verificationBox {
-            margin: 20px 0;
-            background-color: #444;
-            padding: 15px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: center;
+        .coin-info, .crypto-addresses {
+            display: inline-block;
+            margin: 20px;
         }
 
-        #verificationBox input {
-            padding: 5px;
-            font-size: 14px;
-            margin-right: 10px;
+        .crypto-addresses {
+            max-width: 200px;
+            text-align: left;
         }
 
-        #verificationBox button {
-            background-color: #007bff;
-        }
-
-        .game-container {
-            margin-top: 30px;
+        .crypto-addresses div {
+            margin-bottom: 5px;
         }
 
         .slot-game {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
-        .slot-machine {
+        .slot-row {
             font-size: 40px;
-            display: flex;
-        }
-
-        .slot-item {
-            margin: 0 10px;
-        }
-
-        .notification {
-            font-size: 16px;
-            padding: 10px;
-            margin: 10px 0;
-        }
-
-        .feedback-form {
-            margin-top: 30px;
+            margin: 10px;
         }
 
         .feedback-box {
             display: none;
-            padding: 10px;
             background-color: #333;
-            margin-top: 10px;
-            border-radius: 5px;
+            padding: 20px;
+            width: 300px;
+            margin: 20px auto;
         }
 
-        .feedback-button {
-            padding: 10px;
-            background-color: #ffc107;
+        .feedback-box textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .luxury-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #444;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 5px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .luxury-notification.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .button {
+            background-color: #28a745;
+            color: white;
             border: none;
-            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 10px;
             border-radius: 5px;
         }
 
-        .redeem-box {
-            margin-top: 30px;
-            padding: 10px;
-            background-color: #333;
-            border-radius: 5px;
+        .button:hover {
+            background-color: #218838;
         }
 
-        .redeem-box input {
-            padding: 5px;
-            margin-right: 10px;
+        .spinning {
+            animation: spin 1s ease-in-out infinite;
         }
 
-        .feedback-message {
-            padding: 10px;
-            color: white;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
-        .correct {
-            background-color: green;
-        }
-
-        .incorrect {
-            background-color: red;
-        }
-
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Welcome to Tip CryptoGuy</h1>
+<div class="header">
+    <h1>Welcome to Crypto Gambling!</h1>
+    <p>Tip crypto master with your donation and enjoy the game!</p>
+</div>
 
-    <!-- Crypto Addresses Section -->
-    <div id="cryptoAddresses"></div>
-
-    <!-- Coin Balance Section -->
-    <h3>Current Coin Balance: <span id="coinBalance">0</span> coins</h3>
+<div class="content">
+    <!-- Coin Balance -->
+    <div class="coin-info">
+        <h2>Your Coin Balance: <span id="coinBalance">0</span></h2>
+    </div>
 
     <!-- Admin Verification -->
-    <div id="verificationBox">
+    <div class="coin-info">
         <input type="text" id="adminCode" placeholder="Enter Admin Code">
-        <button onclick="verifyAdmin()">Verify Admin</button>
+        <button class="button" onclick="verifyAdmin()">Verify Admin</button>
     </div>
 
-    <div id="message" class="notification"></div>
-
-    <!-- Redeem Coins Section -->
-    <div class="redeem-box">
-        <h4>Redeem Coins:</h4>
-        <input type="text" id="redeemCode" placeholder="Enter Code">
-        <button onclick="redeemCoins()">Redeem</button>
+    <!-- Redeem Coins -->
+    <div class="coin-info">
+        <input type="text" id="redeemCode" placeholder="Enter Redeem Code">
+        <button class="button" onclick="redeemCoins()">Redeem Coins</button>
     </div>
 
-    <div id="redeemMessage" class="feedback-message"></div>
-
-    <!-- Slot Game Section -->
-    <div class="game-container">
-        <h3>Slot Game - 1000 Coins to Play!</h3>
-        <div id="slotGame" class="slot-game">
-            <button onclick="playSlotGame()">Spin</button>
-            <div id="slotMachine" class="slot-machine">
-                <div class="slot-item">🍒</div>
-                <div class="slot-item">🍇</div>
-                <div class="slot-item">🍉</div>
-            </div>
-        </div>
+    <!-- Slot Game -->
+    <div class="slot-game">
+        <div class="slot-row" id="slot1">🍒</div>
+        <div class="slot-row" id="slot2">🍉</div>
+        <div class="slot-row" id="slot3">🍇</div>
+        <button class="button" onclick="spinSlotGame()">Spin</button>
     </div>
 
-    <!-- Feedback Form Section -->
-    <div class="feedback-form">
-        <button class="feedback-button" onclick="showFeedbackForm()">Give Feedback</button>
-        <div class="feedback-box">
-            <textarea id="feedback" placeholder="Your Feedback Here..."></textarea>
-            <button onclick="submitFeedback()">Submit</button>
-        </div>
+    <!-- Feedback Form -->
+    <button class="button" onclick="showFeedbackForm()">Give Feedback</button>
+    <div class="feedback-box">
+        <textarea id="feedback" placeholder="Enter your feedback..."></textarea><br>
+        <button class="button" onclick="submitFeedback()">Submit</button>
+        <button class="button" onclick="cancelFeedbackForm()">Cancel</button>
     </div>
+
+    <!-- Crypto Addresses -->
+    <div class="crypto-addresses">
+        <h3>Crypto Addresses</h3>
+        <div>Bitcoin (BTC): <span id="btc-address">bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48</span> <button class="button" onclick="copyToClipboard('btc-address')">Copy</button></div>
+        <div>XRP: <span id="xrp-address">riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ</span> <button class="button" onclick="copyToClipboard('xrp-address')">Copy</button></div>
+        <div>Solana (SOL): <span id="solana-address">CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c</span> <button class="button" onclick="copyToClipboard('solana-address')">Copy</button></div>
+        <div>BNB: <span id="bnb-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</span> <button class="button" onclick="copyToClipboard('bnb-address')">Copy</button></div>
+        <div>Polygon (MATIC): <span id="polygon-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</span> <button class="button" onclick="copyToClipboard('polygon-address')">Copy</button></div>
+        <div>Litecoin (LTC): <span id="litecoin-address">Lfadmh9uxk9pawfaH9muBZ5vkVQhkrN1kc</span> <button class="button" onclick="copyToClipboard('litecoin-address')">Copy</button></div>
+        <div>USDT (Ethereum Network): <span id="usdt-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</span> <button class="button" onclick="copyToClipboard('usdt-address')">Copy</button></div>
+        <div>USDC (Ethereum Network): <span id="usdc-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</span> <button class="button" onclick="copyToClipboard('usdc-address')">Copy</button></div>
+        <div>COSMOS (ATOM): <span id="cosmos-address">cosmos1sm3tzv4jmv8ac9zul9fry0ped0d3y8kxxufk2n</span> <button class="button" onclick="copyToClipboard('cosmos-address')">Copy</button></div>
+        <div>Official Trump (Solana): <span id="trump-address">CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c</span> <button class="button" onclick="copyToClipboard('trump-address')">Copy</button></div>
+        <div>Shiba Inu (Ethereum): <span id="shiba-address">0x65793418b7a6b0Dced78d59AbD44041b1567BE63</span> <button class="button" onclick="copyToClipboard('shiba-address')">Copy</button></div>
+    </div>
+
+    <!-- Notification -->
+    <div id="message" class="luxury-notification"></div>
 </div>
 
 <script>
-    // Your crypto addresses with networks
-    const addresses = {
-        Bitcoin: "bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48 (BTC)",
-        Ethereum: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (ETH)",
-        XRP: "riaJ77mQKU42oTv9b2p7KXZ25tYZWTVbQ (XRP)",
-        Solana: "CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c (SOL)",
-        BNB: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (BNB)",
-        Polygon: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (MATIC)",
-        Litecoin: "Lfadmh9uxk9pawfaH9muBZ5vkVQhkrN1kc (LTC)",
-        USDT: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (USDT)",
-        USDC: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (USDC)",
-        COSMOS: "cosmos1sm3tzv4jmv8ac9zul9fry0ped0d3y8kxxufk2n (ATOM)",
-        TrumpCoin: "CMmyoSQQrmAyrTdUg9XMfWosizxN7erCkHfMvd1NKx4c (TRUMP)",
-        ShibaInu: "0x65793418b7a6b0Dced78d59AbD44041b1567BE63 (SHIBA)"
-    };
-
-    function displayCryptoAddresses() {
-        const cryptoDiv = document.getElementById('cryptoAddresses');
-        Object.keys(addresses).forEach(key => {
-            const div = document.createElement('div');
-            div.classList.add('address-box');
-            div.innerHTML = `<div class="address">${key}: ${addresses[key]}</div><button class="copy-btn" onclick="copyToClipboard('${key}')">Copy</button>`;
-            cryptoDiv.appendChild(div);
-        });
-    }
-
-    function copyToClipboard(addressName) {
-        const address = addresses[addressName];
-        navigator.clipboard.writeText(address).then(() => {
-            alert(addressName + " copied!");
-        });
-    }
-
-    // Slot Game Logic
-    function playSlotGame() {
-        const fruits = ['🍒', '🍇', '🍉', '🍎', '🍊', '🍍', '🍓'];
+    // Slot Game Function
+    function spinSlotGame() {
+        const fruits = ["🍒", "🍉", "🍇", "🍊", "🍓", "🍋", "🍏"];
         let result = [];
         let win = false;
 
+        // Generate a random result for the 3 rows
         for (let i = 0; i < 3; i++) {
-            result.push(fruits[Math.floor(Math.random() * fruits.length)]);
+            let randomFruit = fruits[Math.floor(Math.random() * fruits.length)];
+            result.push(randomFruit);
         }
 
-        // Show slot results
-        const slotMachine = document.getElementById('slotMachine');
-        const slotItems = slotMachine.querySelectorAll('.slot-item');
-        slotItems.forEach((item, index) => {
-            item.textContent = result[index];
+        // Display the result on the screen
+        const slotRow = document.querySelectorAll('.slot-row');
+        result.forEach((fruit, index) => {
+            const item = slotRow[index];
+            item.textContent = fruit;
+
+            // Adding animation for spinning
+            item.classList.add('spinning');
+            setTimeout(() => {
+                item.classList.remove('spinning');
+            }, 800);
         });
 
-        // Check if all fruits match
+        // Check if all 3 rows have the same fruit
         if (result[0] === result[1] && result[1] === result[2]) {
             win = true;
-            alert("You win 10,000 coins!");
-            updateCoinBalance(10000);
-        } else {
-            alert("Try again!");
         }
-    }
 
-    // Update Coin Balance Function
-    function updateCoinBalance(amount) {
-        let currentBalance = parseInt(document.getElementById("coinBalance").innerText);
-        currentBalance += amount;
-        document.getElementById("coinBalance").innerText = currentBalance;
-    }
-
-    // Admin Verification Logic
-    function verifyAdmin() {
-        const adminCode = document.getElementById('adminCode').value;
-        const correctCode = "Ariengambleswhilebeingabillionaire";
-        if (adminCode === correctCode) {
-            alert("Admin Verified!");
-            updateCoinBalance(999999999);
-        } else {
-            alert("Invalid Admin Code");
-        }
-    }
-
-    // Redeem Coins Logic
-    function redeemCoins() {
-        const redeemCode = document.getElementById('redeemCode').value;
-        const correctCode = "SpecialRedeemCode123";
-        if (redeemCode === correctCode) {
-            alert("Coins Redeemed!");
-            updateCoinBalance(5000);  // Adds 5000 coins
-        } else {
-            alert("Invalid Redeem Code");
-        }
-    }
-
-    // Feedback Logic
-    function showFeedbackForm() {
-        const feedbackBox = document.querySelector('.feedback-box');
-        feedbackBox.style.display = 'block';
-    }
-
-    function submitFeedback() {
-        const feedback = document.getElementById('feedback').value;
-        alert("Feedback submitted: " + feedback);
-    }
-
-    // Call this function when the page loads to display crypto addresses
-    window.onload = function() {
-        displayCryptoAddresses();
-    };
-</script>
-
-</body>
-</html>
+        // Show the results after the spin
+        setTimeout(() => {
+            if (win) {
+                showLuxuryNotification("You won 10,000 coins!");
+                updateCoinBalance(10000
