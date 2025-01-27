@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -148,6 +147,8 @@
 
 <div class="container">
     <h1>Welcome to Tip CryptoGuy</h1>
+
+    <!-- Crypto Addresses Section -->
     <div class="address-box">
         <div class="address">Bitcoin: bc1qx2rd440mz3dpc0mk4e3v766gt70glh32mfdq48</div>
         <button class="copy-btn" onclick="copyToClipboard('Bitcoin')">Copy</button>
@@ -197,6 +198,7 @@
         <button class="copy-btn" onclick="copyToClipboard('Shiba Inu')">Copy</button>
     </div>
 
+    <!-- Coin Balance Section -->
     <h3>Current Coin Balance: <span id="coinBalance">0</span> coins</h3>
 
     <!-- Admin Verification -->
@@ -207,7 +209,7 @@
 
     <div id="message" class="notification"></div>
 
-    <!-- Redeem Coins -->
+    <!-- Redeem Coins Section -->
     <div class="redeem-box">
         <h4>Redeem Coins:</h4>
         <input type="text" id="redeemCode" placeholder="Enter Code">
@@ -216,23 +218,21 @@
 
     <div id="redeemMessage" class="feedback-message"></div>
 
-    <!-- Slot Game -->
+    <!-- Slot Game Section -->
     <div class="game-container">
         <h3>Slot Game - 1000 Coins to Play!</h3>
         <div id="slotGame" class="slot-game">
             <button onclick="playSlotGame()">Spin</button>
+            <div id="slotMachine" class="slot-machine">
+                <div class="slot-item">🍒</div>
+                <div class="slot-item">🍇</div>
+                <div class="slot-item">🍉</div>
+            </div>
         </div>
     </div>
 
-    <!-- Feedback Form -->
+    <!-- Feedback Form Section -->
     <div class="feedback-form">
         <button class="feedback-button" onclick="showFeedbackForm()">Give Feedback</button>
         <div class="feedback-box">
-            <textarea id="feedbackInput" placeholder="Enter your feedback here"></textarea><br>
-            <button onclick="submitFeedback()">Submit Feedback</button>
-            <button onclick="closeFeedbackForm()">Decline</button>
-        </div>
-    </div>
-</div>
-
-<script>
+            <textarea id="feedback
